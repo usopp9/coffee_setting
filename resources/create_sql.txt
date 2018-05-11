@@ -1,0 +1,45 @@
+-- coffee
+DROP SCHEMA IF EXISTS coffee_project;
+
+-- coffee
+CREATE SCHEMA coffee_project;
+
+-- 커피
+CREATE TABLE coffee_project.coffee (
+	ccode VARCHAR(20) NOT NULL COMMENT '제품코드',
+	cname VARCHAR(20) NOT NULL COMMENT '제품명'
+)
+COMMENT '커피';
+
+-- 커피
+ALTER TABLE coffee_project.coffee
+	ADD CONSTRAINT PK_coffee
+		PRIMARY KEY (
+			ccode 
+		);
+
+-- 커피단가
+CREATE TABLE coffee_project.coffeePrice (
+	ccode   VARCHAR(20) NOT NULL COMMENT '제품코드',
+	cprice  INT(8)      NULL     COMMENT '제품단가',
+	ccount  INT(8)      NULL     COMMENT '판매수량',
+	cmargin INT(2)      NULL     COMMENT '마진율' 
+)
+COMMENT '커피단가';
+
+-- 커피단가
+ALTER TABLE coffee_project.coffeePrice
+	ADD CONSTRAINT PK_coffeePrice 
+		PRIMARY KEY (
+			ccode 
+		);
+
+-- 커피단가
+ALTER TABLE coffee_project.coffeePrice
+	ADD CONSTRAINT FK_coffee_TO_coffeePrice 
+		FOREIGN KEY (
+			ccode 
+		)
+		REFERENCES coffee_project.coffee ( 
+			ccode 
+		);
